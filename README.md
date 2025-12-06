@@ -3,7 +3,9 @@
 An interactive **Streamlit-based data analysis dashboard** for exploring **global air pollution levels**, clustering world cities using machine learning, and visualizing patterns with dynamic charts and global maps.
 
 🔗 **Live App:**  https://global-airpollution-analysis.streamlit.app/
+
 📁 **Status:** Completed  
+
 📦 **Tech Stack:** Streamlit, Python, Pandas, Plotly, Scikit-Learn
 
 ---
@@ -48,7 +50,7 @@ Key goals of the project:
 ## 📸 Screenshot
 
 ### **Dashboard Preview Page**
-![Dashboard](images/screenshot1.png)
+![Dashboard](Images/screenshot1.png)
 
 ---
 
@@ -61,8 +63,9 @@ Key goals of the project:
 │── worldcities.csv
 │── requirements.txt
 │── README.md
-│── images/
-      └── screenshot1.png
+│── Images/
+      │── screenshot1.png
+      └── screenshot2.png
 ```
 
 ---
