@@ -94,7 +94,7 @@ corr = filtered[pollutants].corr()
 fig_heatmap = px.imshow(corr, text_auto=True, aspect="auto", color_continuous_scale="RdBu_r")
 st.plotly_chart(fig_heatmap)
 
-# VISUAL 4 — Cluster Scatter Plot (Main)
+# VISUAL 4 — Cluster Scatter Plot
 
 st.subheader("📌 Cluster Visualization ")
 fig_scatter = px.scatter(filtered, x="NO2 AQI Value", y="PM2.5 AQI Value", color="Cluster", hover_data=["City", "Country"], width=900, height=500)
@@ -106,81 +106,6 @@ st.subheader("📊 Average Pollutants ")
 cluster_avg = filtered.groupby("Cluster")[pollutants].mean().reset_index()
 fig_bar = px.bar(cluster_avg, x="Cluster", y=pollutants, barmode="group", height=450)
 st.plotly_chart(fig_bar)
-
-# GLOBAL MAP
-
-st.subheader("🌎 Global Pollution Map with Clusters")
-
-df = df.rename(columns={
-    'lat': 'Latitude',
-    'lng': 'Longitude',
-    'city': 'City',
-    'country': 'Country'})
-
-# Check required columns
-required = ['Latitude', 'Longitude']
-missing = [c for c in required if c not in df.columns]
-
-if missing:
-    st.error(f"Missing required columns for map: {missing}")
-else:
-
-    # Choose a suitable pollution metric to color markers
-    # Pick one that exists in your dataset
-    possible_pollutants = ['PM2.5 AQI Value', 'CO AQI Value', 'NO2 AQI Value', 'Ozone AQI Value']
-    pollutant = None
-    for col in possible_pollutants:
-        if col in df.columns:
-            pollutant = col
-            break
-
-    if pollutant is None:
-        st.warning("No pollutant column found — markers will be shown in default color.")
-    
-    # --- FOLIUM MAP ---
-    m = folium.Map(location=[20, 0], zoom_start=2.3, tiles="cartodbpositron")
-
-    marker_cluster = MarkerCluster().add_to(m)
-
-    # Color scale based on AQI
-    def get_color(value):
-        if pollutant is None or pd.isna(value):
-            return "gray"
-        value = float(value)
-        if value <= 50:
-            return "green"
-        elif value <= 100:
-            return "yellow"
-        elif value <= 150:
-            return "orange"
-        elif value <= 200:
-            return "red"
-        elif value <= 300:
-            return "purple"
-        else:
-            return "black"
-
-    # --- ADD MARKERS ---
-    for _, row in df.iterrows():
-        color = get_color(row.get(pollutant, None))
-
-        folium.CircleMarker(
-            location=[row['Latitude'], row['Longitude']],
-            radius=4,
-            weight=0.8,
-            color=color,
-            fill=True,
-            fill_opacity=0.45,
-            tooltip=f"{row.get('City','NA')}",
-            popup=folium.Popup(f"""
-                <b>City:</b> {row.get('City','NA')}<br>
-                <b>Country:</b> {row.get('Country','NA')}<br>
-                <b>{pollutant}:</b> {row.get(pollutant,'NA')}
-            """, max_width=250)
-        ).add_to(marker_cluster)
-
-    # --- DISPLAY MAP IN STREAMLIT ---
-    st_folium(m, width=1100, height=600)
 
 # DOWNLOAD OPTIONS
 
@@ -197,3 +122,4 @@ st.download_button("Download Excel", excel_buffer.getvalue(), "pollution_cluster
 
 st.subheader("📄 Dataset Preview")
 st.dataframe(filtered)
+
