@@ -6,9 +6,6 @@ import plotly.graph_objects as go
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
 from sklearn.metrics import silhouette_score
-import folium
-from folium.plugins import MarkerCluster
-from streamlit_folium import st_folium
 import io
 
 st.set_page_config(page_title="Global Air Pollution Dashboard", layout="wide")
@@ -122,4 +119,5 @@ st.download_button("Download Excel", excel_buffer.getvalue(), "pollution_cluster
 
 st.subheader("📄 Dataset Preview")
 st.dataframe(filtered)
+
 
