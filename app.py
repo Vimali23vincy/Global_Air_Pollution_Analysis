@@ -104,21 +104,8 @@ cluster_avg = filtered.groupby("Cluster")[pollutants].mean().reset_index()
 fig_bar = px.bar(cluster_avg, x="Cluster", y=pollutants, barmode="group", height=450)
 st.plotly_chart(fig_bar)
 
-# DOWNLOAD OPTIONS
 
-st.subheader("⬇️ Download Results")
 
-csv_data = filtered.to_csv(index=False).encode("utf-8")
-st.download_button("Download CSV", csv_data, "pollution_clusters.csv", "text/csv")
-
-excel_buffer = io.BytesIO()
-with pd.ExcelWriter(excel_buffer, engine="xlsxwriter") as writer:
-    filtered.to_excel(writer, index=False, sheet_name="Clusters")
-
-st.download_button("Download Excel", excel_buffer.getvalue(), "pollution_clusters.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-
-st.subheader("📄 Dataset Preview")
-st.dataframe(filtered)
 
 
 
