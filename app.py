@@ -14,7 +14,7 @@ st.title("🌍 Global Air Pollution Interactive Dashboard ")
 # Load the datasets
 @st.cache_data
 def load_data():
-    pollution = pd.read_csv("global air pollution dataset.csv")
+    pollution = pd.read_csv("global_air_pollution_dataset.csv")
     cities = pd.read_csv("worldcities.csv")
     return pollution, cities
 
@@ -119,5 +119,6 @@ st.download_button("Download Excel", excel_buffer.getvalue(), "pollution_cluster
 
 st.subheader("📄 Dataset Preview")
 st.dataframe(filtered)
+
 
 
