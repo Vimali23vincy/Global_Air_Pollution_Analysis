@@ -50,7 +50,8 @@ Key goals of the project:
 ## 📸 Screenshot
 
 ### **Dashboard Preview Page**
-![Dashboard](Images/screenshot1.png)
+<img width="1904" height="927" alt="Screenshot1" src="https://github.com/user-attachments/assets/6f403451-df43-48f2-81e3-b6cf78f8bd73" />
+
 
 ---
 
